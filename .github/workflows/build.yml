@@ -1,0 +1,53 @@
+name: Build FemBabe VCam Branding
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dpkg and ldid
+        run: brew install dpkg ldid
+
+      - name: Set up Theos
+        run: |
+          git clone --recursive https://github.com/theos/theos.git ~/theos
+          curl -L https://github.com/theos/sdks/archive/refs/heads/master.tar.gz -o /tmp/sdks.tar.gz
+          mkdir -p ~/theos/sdks
+          tar -xzf /tmp/sdks.tar.gz -C ~/theos/sdks
+          for d in ~/theos/sdks/sdks-master/*.sdk; do mv "$d" ~/theos/sdks/; done
+          rm -rf ~/theos/sdks/sdks-master
+          ls ~/theos/sdks/
+
+      - name: Build overlay dylib
+        run: |
+          export THEOS=~/theos
+          export PATH=$THEOS/bin:$PATH
+          make
+        working-directory: ${{ github.workspace }}
+
+      - name: Show built dylib
+        run: |
+          find .theos -name "*.dylib" || true
+          ls -la .theos/obj/debug/ 2>/dev/null || true
+
+      - name: Package branding deb
+        run: |
+          chmod +x package_deb.sh
+          ./package_deb.sh
+        working-directory: ${{ github.workspace }}
+
+      - name: Upload deb + dylib
+        uses: actions/upload-artifact@v4
+        with:
+          name: fembabe-vcam-branding
+          path: |
+            packages/*.deb
+            .theos/obj/debug/fembabe_branding.dylib
+          if-no-files-found: error

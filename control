@@ -1,0 +1,10 @@
+Package: com.fembabe.vcam.branding
+Name: FemBabe VCam Branding
+Description: Cosmetic branding companion for FemBabe VCam
+Maintainer: FemBabe
+Author: FemBabe
+Section: Tweaks
+Architecture: iphoneos-arm64
+Version: 1.0.0
+Depends: com.fembabe.vcam (>= 0.0.2-52.4)
+Installed-Size: 128
