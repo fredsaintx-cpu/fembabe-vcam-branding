@@ -44,4 +44,4 @@ chmod 755 "$ROOT/DEBIAN" "$ROOT/DEBIAN/postinst" "$ROOT/DEBIAN/postrm"
 chmod 644 "$ROOT/DEBIAN/control" "$ROOT/var/jb/Library/MobileSubstrate/DynamicLibraries/fembabe_branding.plist"
 chmod 755 "$ROOT/var/jb/Library/MobileSubstrate/DynamicLibraries/fembabe_branding.dylib"
 
-dpkg-deb -Zxz -b "$ROOT" "$OUT/${PKG}_${VER}_iphoneos-arm64.deb"
+dpkg-deb --root-owner-group -Zxz -b "$ROOT" "$OUT/${PKG}_${VER}_iphoneos-arm64.deb"
