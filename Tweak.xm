@@ -5,7 +5,7 @@ static IMP originalButtonSetTitle;
 static IMP originalLabelSetText;
 
 static UIColor *FemBabePurple(void) {
-    return [UIColor colorWithRed:0.25 green:0.09 blue:0.40 alpha:1.0];
+    return [UIColor colorWithRed:0.59 green:0.22 blue:0.91 alpha:1.0];
 }
 
 static NSString *FemBabeTitle(NSString *title) {

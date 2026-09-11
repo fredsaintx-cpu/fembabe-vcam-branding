@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PKG=com.fembabe.vcam.branding
-VER=1.0.1
+VER=1.0.2
 ROOT=build/debroot
 OUT=packages
 DYLIB=.theos/obj/debug/fembabe_branding.dylib
