@@ -48,8 +48,11 @@ static void brandExistingViews(UIView *view) {
 }
 
 static void brandExistingWindows(void) {
-    for (UIWindow *window in UIApplication.sharedApplication.windows) {
-        brandExistingViews(window);
+    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+        if (![scene isKindOfClass:UIWindowScene.class]) continue;
+        for (UIWindow *window in ((UIWindowScene *)scene).windows) {
+            brandExistingViews(window);
+        }
     }
 }
 
